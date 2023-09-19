@@ -21,6 +21,10 @@ def time(current_time):
         if min == 60:
             min = 0
             hour += 1
+            if hour == 24:
+                sec = 0
+                min = 0
+                hour = 0
     else:
         sec += 1
     result_time = f'{hour:02d}:{min:02d}:{sec:02d}'
@@ -28,21 +32,28 @@ def time(current_time):
 
 
 def robot_time_when_free(current_time, processing_time):
-    hour, min, sec = current_time.split(':')
+    hour, minute, sec = current_time.split(':')
     sec = int(sec)
-    min = int(min)
+    minute = int(minute)
     hour = int(hour)
     if sec + processing_time >= 60:
-        sec = processing_time - 60
-        min += 1
+        sec = sec + processing_time - 60
+        minute += 1
+        if minute == 60:
+            minute = 0
+            hour += 1
+            if hour == 24:
+                hour = 0
     else:
         sec += processing_time
-    result_time = f'{hour:02d}:{min:02d}:{sec:02d}'
+    result_time = f'{hour:02d}:{minute:02d}:{sec:02d}'
     return result_time
 
 
 for robot in robots:
     robot_name, processing_time = robot.split('-')
+    if starting_time == '23:59:59':
+        starting_time = '00:00:00'
     robots_info[robot_name] = [int(processing_time), starting_time]
 
 
