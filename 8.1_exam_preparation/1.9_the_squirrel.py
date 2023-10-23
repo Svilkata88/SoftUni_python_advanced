@@ -41,4 +41,4 @@ for direction in directions:
 else:
     print('There are more hazelnuts to collect.')
 print(f'Hazelnuts collected: {hazelnuts}')
-#print('\n'.join([''.join([ch for ch in el]) for el in field]))
+
